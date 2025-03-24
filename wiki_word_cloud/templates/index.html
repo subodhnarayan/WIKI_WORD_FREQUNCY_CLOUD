@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia Word Cloud Visualizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- D3.js for visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- D3 Cloud layout for word cloud -->
+    <script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.5/build/d3.layout.cloud.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Wikipedia Word Cloud Visualizer</h1>
+            <p>Analyze word frequencies in Wikipedia categories and visualize them as a word cloud</p>
+        </header>
+
+        <div class="search-container">
+            <form id="search-form">
+                <div class="input-group">
+                    <input type="text" id="category-input" placeholder="Enter Wikipedia category (e.g., 'Machine learning')" required>
+                    <input type="number" id="top-n-input" value="100" min="10" max="500" title="Number of words to display">
+                </div>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="use-cache" checked>
+                        Use cached data if available
+                    </label>
+                </div>
+                <button type="submit" id="analyze-btn">Analyze</button>
+            </form>
+        </div>
+
+        <div class="cached-categories">
+            <h3>Cached Categories</h3>
+            <p>Click on a category to load it:</p>
+            <div id="cached-list"></div>
+        </div>
+
+        <div class="results-container">
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Analyzing category, please wait...</p>
+            </div>
+
+            <div id="results" class="hidden">
+                <h2 id="result-title"></h2>
+                <p id="result-info"></p>
+                <div id="word-cloud"></div>
+            </div>
+
+            <div id="error" class="hidden">
+                <h3>Error</h3>
+                <p id="error-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Powered by Wikipedia API and Flask</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
